@@ -8,7 +8,9 @@ import Person from './Person/Person';
  * You only want them of a couple
  */
 class App extends Component {
-  // States are managed from inside of a component
+  /**
+   * States are managed from inside of a component
+   */
   state = {
     persons: [
       { name: 'Michaś', age: 22 },
@@ -19,19 +21,6 @@ class App extends Component {
     showPersons: false
   };
 
-  switchNameHandler = (newName) => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Michał';
-    // Special method
-    this.setState({
-      persons: [
-        { name: newName, age: 22 },
-        { name: 'Krzysztof', age: 25 },
-        { name: 'Zdziś', age: 28 }
-      ]
-    });
-  };
-
   nameChangedHandler = (event) => {
     this.setState({
       persons: [
@@ -40,6 +29,17 @@ class App extends Component {
         { name: 'Zdziś', age: 28 }
       ]
     });
+  }
+
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons;
+    /**
+     * We didn't edit a constant. Arrays and objects are reference types 
+     * so it doesn't assign a new value to the constant,
+     * it is only holding a pointer so we actually only changed the element it was pointing to
+     */
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
   }
 
   togglePersonsHandler = () => {
@@ -66,18 +66,14 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            click={this.switchNameHandler.bind(this, 'Michaś!')}> My Hobbies: Programming</Person>
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            changed={this.nameChangedHandler} />
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-            click={this.switchNameHandler.bind(this, 'Michaś!')}> My Hobbies: Programming</Person>
+          {
+            this.state.persons.map( (person, index) => {
+              return <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age} />
+            })
+          }
         </div>
       )
     }
@@ -89,7 +85,6 @@ class App extends Component {
         {/* Convenient syntax but it can be inefficient. Use bind instead */}
         <button
           style={style}
-          // onClick={() => this.switchNameHandler('Michaś111')}>Switch Name</button>
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
         {persons}
 
