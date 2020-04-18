@@ -13,9 +13,9 @@ class App extends Component {
    */
   state = {
     persons: [
-      { name: 'Michaś', age: 22 },
-      { name: 'Krzyś', age: 25 },
-      { name: 'Zdziś', age: 28 }
+      { id: 'jodkjvnsdf1', name: 'Michaś', age: 22 },
+      { id: 'jodkjvnsdf2', name: 'Krzyś', age: 25 },
+      { id: 'jodkjvnsdf3', name: 'Zdziś', age: 28 }
     ],
     otherState: 'some other value',
     showPersons: false
@@ -32,14 +32,14 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;
+    const persons = [...this.state.persons];
     /**
      * We didn't edit a constant. Arrays and objects are reference types 
      * so it doesn't assign a new value to the constant,
      * it is only holding a pointer so we actually only changed the element it was pointing to
      */
     persons.splice(personIndex, 1);
-    this.setState({persons: persons});
+    this.setState({ persons: persons });
   }
 
   togglePersonsHandler = () => {
@@ -67,11 +67,18 @@ class App extends Component {
       persons = (
         <div>
           {
-            this.state.persons.map( (person, index) => {
+            this.state.persons.map((person, index) => {
               return <Person
                 click={() => this.deletePersonHandler(index)}
                 name={person.name}
-                age={person.age} />
+                age={person.age}
+                /**
+                 * Key property allows the React to keep track of the individual
+                 * elements so that it has a clear property it can compare between
+                 * the different elements to find out which elements changed 
+                 * and which didn't
+                 */
+                key={person.id} />
             })
           }
         </div>
