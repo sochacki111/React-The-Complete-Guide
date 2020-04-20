@@ -1,8 +1,22 @@
-import React, { Component } from 'react';
 // import React, { useState } from 'react';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
-import Radium, { StyleRoot } from 'radium'
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`;
 
 /**
  * Statefull component (this component manages state) aka "smart components" or "container components"
@@ -64,19 +78,6 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
-
     let persons = null;
 
     if (this.state.showPersons) {
@@ -100,12 +101,6 @@ class App extends Component {
           }
         </div>
       );
-
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
     }
 
     const classes = [];
@@ -116,29 +111,22 @@ class App extends Component {
       classes.push('bold');
     }
 
-
     return (
-      /**
-       * Radium needs wrapping entire App with <StyleRoot/> 
-       * in order to use advanced features like @media queries
-       */
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p>
-          {/* Convenient syntax but it can be inefficient. Use bind instead */}
-          <button
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is really working!</p>
+        {/* Convenient syntax but it can be inefficient. Use bind instead */}
+        <StyledButton alt={this.state.showPersons}
+          onClick={this.togglePersonsHandler}>Toggle Persons
+        </StyledButton>
+        {persons}
 
-        </div>
-      </StyleRoot>
+      </div>
     );
   };
 
 }
-export default Radium(App);
+export default App;
 
 /**
  * React 16.8 added Hooks. This allows us to manage state in functionl components with e.g. useState hook
