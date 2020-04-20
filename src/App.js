@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import React, { useState } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium'
 import Person from './Person/Person';
 
 /**
@@ -64,11 +65,16 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -93,25 +99,46 @@ class App extends Component {
             })
           }
         </div>
-      )
+      );
+
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
 
-    return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        {/* Convenient syntax but it can be inefficient. Use bind instead */}
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
-        {persons}
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
 
-      </div>
+
+    return (
+      /**
+       * Radium needs wrapping entire App with <StyleRoot/> 
+       * in order to use advanced features like @media queries
+       */
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          {/* Convenient syntax but it can be inefficient. Use bind instead */}
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
+
+        </div>
+      </StyleRoot>
     );
   };
 
 }
-export default App;
+export default Radium(App);
 
 /**
  * React 16.8 added Hooks. This allows us to manage state in functionl components with e.g. useState hook
