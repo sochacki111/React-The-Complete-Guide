@@ -7,6 +7,7 @@ import React, { Component } from 'react';
  */
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 /**
  * Statefull component (this component manages state) aka "smart components" or "container components"
@@ -76,18 +77,24 @@ class App extends Component {
         <div>
           {
             this.state.persons.map((person, index) => {
-              return <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                /**
-                 * Key property allows the React to keep track of the individual
-                 * elements so that it has a clear property it can compare between
-                 * the different elements to find out which elements changed 
-                 * and which didn't
-                 */
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, person.id)} />
+              /**
+               * Error Boundary is so-called higher order component
+               * Component that simply wraps a component with the goal of handling any errors that component might throw  
+               * key always has to be on 
+               */
+              return <ErrorBoundary key={person.id}>
+                <Person
+                  click={() => this.deletePersonHandler(index)}
+                  name={person.name}
+                  age={person.age}
+                  /**
+                   * Key property allows the React to keep track of the individual
+                   * elements so that it has a clear property it can compare between
+                   * the different elements to find out which elements changed 
+                   * and which didn't
+                   */
+                  changed={(event) => this.nameChangedHandler(event, person.id)} />
+              </ErrorBoundary>
             })
           }
         </div>
