@@ -1,47 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 /**
  * Thanks to webpack we can actually import css files into js
  * .css extension is needed. We can only omit it in .js files
  */
-// import './Person.css'
-/**
- * Note that StyledDiv is a regular React component 
- * because IMPORTANT every method provided by this styled object no matter if that's div, h1 etc.
- * RETURNS React component
- */
-const StyledDiv = styled.div`
-  width: 60%;
-  margin: 16px auto;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 3px #ccc;
-  padding: 16px;
-  text-align: center;
-
-  @media (min-width: 500px) {
-          width: 450px;
-      }
-  }
-`;
-
-/**
- * Stateless component - it has no internal state management
- * It is a good practice to create as many of these stateless components aka "dumms" (they don't have any internal logic) or "presentional components"
- * They only get external data and output it in structured way 
- * props is an object that holds every property passed to the Person class
- */
+import classes from './Person.css';
 const person = props => {
-  // const style = {
-  //   '@media (min-width: 500px)': {
-  //     width: '450px'
-  //   }
-  // };
   return (
-    /**
-     * style property has higher priority than class by default css rules
-     */
-    // <div className="Person" style={style}>
-    <StyledDiv>
+    <div className={classes.Person}>
       < p onClick={props.click} > I'm {props.name} and I am {props.age} years old!</p>
       {/** 
        * Children refers to any elements (also plain text) between opening and closing tag of our component. 
@@ -49,7 +14,7 @@ const person = props => {
        */}
       <p>{props.children}</p>
       <input type="text" onChange={props.changed} value={props.name} />
-    </StyledDiv>
+    </div>
   )
 };
 
