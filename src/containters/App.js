@@ -6,8 +6,8 @@ import React, { Component } from 'react';
  * It will import classes as properties on classes object
  */
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
+import Person from '../components/Persons/Person/Person';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
 
 /**
  * Statefull component (this component manages state) aka "smart components" or "container components"
