@@ -14,6 +14,10 @@ import Cockpit from '../components/Cockpit/Cockpit'
  * You only want them of a couple
  */
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
   /**
    * States are managed from inside of a component
    */
@@ -26,6 +30,15 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -69,6 +82,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     let persons = null;
 
     if (this.state.showPersons) {
@@ -127,3 +141,26 @@ export default App;
 //       ] 
 //     });
 //   };
+
+/**
+ * Presentational component is a functional component that does not manages state
+ * It is a good practice to restrict yourself to a couple of components that are involved in the state management 
+ * The majority of components should be presentational, stateless components
+ */
+
+ /**
+  * Component Lifecycle - Creation
+  * 1. constructor(props)
+  *   - setting initial state
+  *   - DON'T sending a HTTP request or storing sth in your local storage
+  * 2. getDerivedStateStateFromProps(props, state)
+  *   - sync state 
+  *   - very niche lifecycle
+  *   - DON'T sending a HTTP request or storing sth in your local storage
+  * 3. render()
+  *   - prepare & structure JSX Code
+  * 4. Render Child Components 
+  *   - componentDidMount()
+  *   - DO cause side-effects like sending a HTTP request or storing sth in your local storage
+  *   - DON'T update state
+  */

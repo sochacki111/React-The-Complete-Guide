@@ -4,8 +4,9 @@ import Person from './Person/Person';
  * Class based components are basicly used for state management
  * and functional components for the presentation of content
  */
-const persons = (props) =>
-    props.persons.map((person, index) =>
+const persons = (props) => {
+    console.log('[Persons.js] rendering...');
+    return props.persons.map((person, index) =>
         <Person
             click={() => props.clicked(index)}
             name={person.name}
@@ -19,5 +20,6 @@ const persons = (props) =>
             key={person.id}
             changed={(event) => props.changed(event, person.id)} />
     );
+}
 
 export default persons;
