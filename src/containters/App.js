@@ -6,8 +6,8 @@ import React, { Component } from 'react';
  * It will import classes as properties on classes object
  */
 import classes from './App.css';
-import Person from '../components/Persons/Person/Person';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit'
 
 /**
  * Statefull component (this component manages state) aka "smart components" or "container components"
@@ -70,57 +70,21 @@ class App extends Component {
 
   render() {
     let persons = null;
-    let btnClasses = '';
 
     if (this.state.showPersons) {
-      persons = (
-        <div>
-          {
-            this.state.persons.map((person, index) => {
-              /**
-               * Error Boundary is so-called higher order component
-               * Component that simply wraps a component with the goal of handling any errors that component might throw  
-               * key always has to be on 
-               */
-              return <ErrorBoundary key={person.id}>
-                <Person
-                  click={() => this.deletePersonHandler(index)}
-                  name={person.name}
-                  age={person.age}
-                  /**
-                   * Key property allows the React to keep track of the individual
-                   * elements so that it has a clear property it can compare between
-                   * the different elements to find out which elements changed 
-                   * and which didn't
-                   */
-                  changed={(event) => this.nameChangedHandler(event, person.id)} />
-              </ErrorBoundary>
-            })
-          }
-        </div>
-      );
-
-      btnClasses = classes.Red;
-    }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler} />;
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        {/* Convenient syntax but it can be inefficient. Use bind instead */}
-        <button className={btnClasses}
-          onClick={this.togglePersonsHandler}>Toggle Persons
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
         {persons}
-
       </div>
     );
   };
