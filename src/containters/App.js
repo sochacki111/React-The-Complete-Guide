@@ -40,6 +40,15 @@ class App extends Component {
     console.log('[App.js] componentDidMount');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
+  }
+
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
@@ -144,23 +153,23 @@ export default App;
 
 /**
  * Presentational component is a functional component that does not manages state
- * It is a good practice to restrict yourself to a couple of components that are involved in the state management 
+ * It is a good practice to restrict yourself to a couple of components that are involved in the state management
  * The majority of components should be presentational, stateless components
  */
 
- /**
-  * Component Lifecycle - Creation
-  * 1. constructor(props)
-  *   - setting initial state
-  *   - DON'T sending a HTTP request or storing sth in your local storage
-  * 2. getDerivedStateStateFromProps(props, state)
-  *   - sync state 
-  *   - very niche lifecycle
-  *   - DON'T sending a HTTP request or storing sth in your local storage
-  * 3. render()
-  *   - prepare & structure JSX Code
-  * 4. Render Child Components 
-  *   - componentDidMount()
-  *   - DO cause side-effects like sending a HTTP request or storing sth in your local storage
-  *   - DON'T update state
-  */
+/**
+ * Component Lifecycle - Creation
+ * 1. constructor(props)
+ *   - setting initial state
+ *   - DON'T sending a HTTP request or storing sth in your local storage
+ * 2. getDerivedStateStateFromProps(props, state)
+ *   - sync state
+ *   - very niche lifecycle
+ *   - DON'T sending a HTTP request or storing sth in your local storage
+ * 3. render()
+ *   - prepare & structure JSX Code
+ * 4. Render Child Components
+ *   - componentDidMount()
+ *   - DO cause side-effects like sending a HTTP request or storing sth in your local storage
+ *   - DON'T update state
+ */
