@@ -17,11 +17,14 @@ const cockpit = (props) => {
         setTimeout(() => {
             alert('Saved data to cloud!');
         }, 1000);
+        /**
+         * Inside return we put actions that happen after unmount
+         */
         return () => {
             console.log('[Cockpit.js] cleanup work in useEffect');
-        }
+        };
     }, []);
-    
+
     useEffect(() => {
         console.log('[Cockpit.js] 2nd useEffect');
         return () => {
