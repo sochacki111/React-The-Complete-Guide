@@ -90,7 +90,6 @@ class App extends Component {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow })
   }
-
   render() {
     console.log('[App.js] render');
     let persons = null;
@@ -115,7 +114,7 @@ class App extends Component {
           <Cockpit
             title={this.props.appTitle}
             showPersons={this.state.showPersons}
-            persons={this.state.persons}
+            personsLength={this.state.persons.length}
             clicked={this.togglePersonsHandler}
           />
         ) : null}

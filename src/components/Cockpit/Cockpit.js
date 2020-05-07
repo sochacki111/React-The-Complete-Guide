@@ -38,10 +38,10 @@ const cockpit = (props) => {
     if (props.showPersons) {
         btnClass = classes.Red;
     }
-    if (props.persons.length <= 2) {
+    if (props.personsLength <= 2) {
         assignedClasses.push(classes.red);
     }
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
         assignedClasses.push(classes.bold);
     }
 
@@ -56,4 +56,9 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+/**
+ * Momoization is a technique where React will momoize (store) a snapshot of this component 
+ * and only if its input changes, it will re-render it. And otherwise if its inputs do not change and some parent component
+ * wants to update this cockpit component, React will give back that stored component 
+ */
+export default React.memo(cockpit);
