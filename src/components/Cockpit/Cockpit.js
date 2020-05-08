@@ -35,7 +35,7 @@ const cockpit = (props) => {
     const assignedClasses = [];
     let btnClass = '';
 
-    if (props.showPersons) {
+    if (props.showPersons) { 
         btnClass = classes.Red;
     }
     if (props.personsLength <= 2) {

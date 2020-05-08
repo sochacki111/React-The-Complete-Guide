@@ -16,7 +16,10 @@ class Persons extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         /**
-         * shouldComponentUpdate is super important can help save performace by stopping some rendering actions
+         * shouldComponentUpdate is super important can help save performace by stopping some rendering actions.
+         * But this doesn't mean that you should place it in every component because if you're pretty sure that in all or almost all cases where your parent
+         * update, you will need to update too , then you should not add shouldComponentUpdate or React memo because you will just execute some extra logic 
+         * that makes no sense and actually just slows down the application tiny bit
          */
         console.log('[Persons.js] shoudComponentUpdate')
         /**
