@@ -1,22 +1,25 @@
 /** useEffect is the second most important React hook you can use next to useState 
  * useEffect basically combines the functionality or the use cases you can cover of all these class-based lifecycle hooks in one React hook
  */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 /**
  * Following best practice we create as many functional components as possible
  * because we don't need here to manage state we use functional components
  */
 const cockpit = (props) => {
+    const toggleBtnRef = useRef(null);
     /**
+     * useEffect runs after every render cycle
      * useEffect allows us when it executes by specifying second argument 
      */
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         // Http request...
-        setTimeout(() => {
-            alert('Saved data to cloud!');
-        }, 1000);
+        // setTimeout(() => {
+        //     alert('Saved data to cloud!');
+        // }, 1000);
+        toggleBtnRef.current.click();
         /**
          * Inside return we put actions that happen after unmount
          */
@@ -35,7 +38,7 @@ const cockpit = (props) => {
     const assignedClasses = [];
     let btnClass = '';
 
-    if (props.showPersons) { 
+    if (props.showPersons) {
         btnClass = classes.Red;
     }
     if (props.personsLength <= 2) {
@@ -49,9 +52,10 @@ const cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working!</p>
-            <button className={btnClass}
+            <button ref={toggleBtnRef} className={btnClass}
                 onClick={props.clicked}>Toggle Persons
             </button>
+            <button onClick={props.login}>Log in</button>
         </div>
     );
 };
