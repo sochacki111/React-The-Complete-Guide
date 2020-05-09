@@ -1,7 +1,7 @@
 /** useEffect is the second most important React hook you can use next to useState 
  * useEffect basically combines the functionality or the use cases you can cover of all these class-based lifecycle hooks in one React hook
  */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './Cockpit.css';
 import AuthContext from '../../context/auth-context';
 
@@ -11,6 +11,10 @@ import AuthContext from '../../context/auth-context';
  */
 const cockpit = (props) => {
     const toggleBtnRef = useRef(null);
+    const authContext = useContext(AuthContext);
+
+    console.log(authContext.authenticated);
+
     /**
      * useEffect runs after every render cycle
      * useEffect allows us when it executes by specifying second argument 
@@ -57,9 +61,7 @@ const cockpit = (props) => {
             <button ref={toggleBtnRef} className={btnClass}
                 onClick={props.clicked}>Toggle Persons
             </button>
-            <AuthContext.Consumer>
-                {context => <button onClick={context.login}>Log in</button>}
-            </AuthContext.Consumer>
+            <button onClick={authContext.login}>Log in</button>
         </div>
     );
 };
