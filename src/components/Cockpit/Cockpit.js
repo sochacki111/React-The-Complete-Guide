@@ -3,6 +3,8 @@
  */
 import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
+
 /**
  * Following best practice we create as many functional components as possible
  * because we don't need here to manage state we use functional components
@@ -55,7 +57,9 @@ const cockpit = (props) => {
             <button ref={toggleBtnRef} className={btnClass}
                 onClick={props.clicked}>Toggle Persons
             </button>
-            <button onClick={props.login}>Log in</button>
+            <AuthContext.Consumer>
+                {context => <button onClick={context.login}>Log in</button>}
+            </AuthContext.Consumer>
         </div>
     );
 };

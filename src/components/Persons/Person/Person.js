@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import Aux from '../../../hoc/Auxiliary';
 import withClass from '../../../hoc/withClass';
 import PropTypes from 'prop-types';
+import AuthContext from '../../../context/auth-context';
 
 /**
  * Thanks to webpack we can actually import css files into js
@@ -28,7 +29,11 @@ class Person extends Component {
     console.log('[Person.js] rendering...');
     return (
       <Aux>
-        {this.props.isAuth ? <p>Authenticated!</p> : <p>Please log in</p>}
+        <AuthContext.Consumer>
+          {context =>
+            context.authenticated ? <p>Authenticated!</p> : <p>Please log in</p>
+          }
+        </AuthContext.Consumer>
         <p onClick={this.props.click} > I'm {this.props.name} and I am {this.props.age} years old!</p>
         {/** 
          * Children refers to any elements (also plain text) between opening and closing tag of our component. 
