@@ -1,8 +1,17 @@
 .NavigationItems {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  /* flex leads to the item sitting next to each other by default */
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100%;
+}
+
+@media (min-width: 500px) {
+  /* For desktop devices items should sit to each other  */
+  .NavigationItems {
+    flex-flow: row;
+  }
 }
