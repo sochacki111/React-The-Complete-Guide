@@ -10,6 +10,9 @@ class NewPost extends Component {
         author: 'Max'
     }
 
+    componentDidMount () {
+        console.log(this.props);
+    }
     // postPostDataHandler is also ok
     postDataHandler = () => {
         const data = {
